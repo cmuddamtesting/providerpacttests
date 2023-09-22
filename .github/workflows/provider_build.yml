@@ -5,9 +5,8 @@ name: Provider Build
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 env:
   PACTBROKER_PACT_URI: https://chandramuddam.pactflow.io/
