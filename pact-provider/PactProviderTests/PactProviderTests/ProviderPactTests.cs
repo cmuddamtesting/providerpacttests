@@ -73,11 +73,14 @@ namespace PactProviderTests.ProviderStates
                     .ServiceProvider(_options.ProviderName, new Uri(_options.ProviderUri))
                     .WithPactBrokerSource(new Uri(_pactBrokerUri), (options) =>
                     {
-                        options.ConsumerVersionSelectors(new ConsumerVersionSelector
+                        options.ConsumerVersionSelectors(/* new ConsumerVersionSelector
                         {
-                            Consumer = _options.ConsumerName,
-                            Latest = true
-                        }).PublishResults(_providerVersion, (configure) =>
+                          / Consumer = _options.ConsumerName,
+                            Latest = true */
+                            new ConsumerVersionSelector { MainBranch = true },
+                            new ConsumerVersionSelector { MatchingBranch = true }
+                        //} 
+                        ).PublishResults(_providerVersion, (configure) =>
                         {
                             configure.ProviderTags(_tag);
                         }).TokenAuthentication(_pactBrokerToken);
