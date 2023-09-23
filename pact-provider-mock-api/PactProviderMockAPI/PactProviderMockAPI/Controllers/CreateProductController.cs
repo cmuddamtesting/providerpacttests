@@ -27,7 +27,7 @@ namespace PactProviderMockAPI.Controllers
                 _createProductRepository.DuplicateProduct();
                 return Ok(new CreateProductResponse
                 {
-                    Message = "The Product already exists",
+                    Message = 123,
                     Description = "Test descr"
                 });
             }
@@ -36,7 +36,7 @@ namespace PactProviderMockAPI.Controllers
                 _createProductRepository.CreateProduct(model);
                 return Ok(new CreateProductResponse
                 {
-                    Message = "Product is created successfully",
+                    Message = 456,
                     Description = "Test descr"
                 }
                     );
