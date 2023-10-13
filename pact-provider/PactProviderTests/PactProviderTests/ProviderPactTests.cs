@@ -23,7 +23,7 @@ namespace PactProviderTests.ProviderStates
             {
                 ProviderName = ProviderPactTestsConstants.ProviderName,
                 ConsumerName = ProviderPactTestsConstants.ConsumerName,
-                PactPath = Path.Combine(@"./Pacts", "Order-Consumer-Order-Provider.json"),
+                PactPath = Path.Combine(@"./Pacts", "OrderConsumer-OrderProvider.json"),
                 ProviderUri = "http://localhost:5000"
             };
 

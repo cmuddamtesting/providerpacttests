@@ -28,7 +28,7 @@
 	  <ProjectReference Include="..\..\..\pact-provider-mock-api\PactProviderMockAPI\PactProviderMockAPI\PactProviderMockAPI.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="Pacts\Order-Consumer-Order-Provider.json">
+	  <None Update="Pacts\OrderConsumer-OrderProvider.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
