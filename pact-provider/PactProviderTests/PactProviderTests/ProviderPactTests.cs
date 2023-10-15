@@ -13,8 +13,9 @@ namespace PactProviderTests.ProviderStates
         private readonly PactVerifier _verifier;
         private readonly string _pactBrokerUri;
         private readonly string _pactBrokerToken;
-        private readonly string _providerVersion;
+        private readonly string _version;
         private readonly string _tag;
+        private readonly string _branch;
         private readonly PactVerifierOptions _options;
 
         public ProviderPactTests(ITestOutputHelper output)
@@ -44,8 +45,10 @@ namespace PactProviderTests.ProviderStates
                 // ensure the required env variables for pactUri and pactConsumer are passed in parameters of the webhook
                 _pactBrokerUri = Environment.GetEnvironmentVariable("PACTBROKER_PACT_URI");
                 _pactBrokerToken = Environment.GetEnvironmentVariable("PACTBROKER_PACT_TOKEN");
-                _providerVersion = Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER");
+                //_providerVersion = Environment.GetEnvironmentVariable("BUILD_BUILDNUMBER");
+                _version = Environment.GetEnvironmentVariable("PROVIDER_VERSION");           
                 _tag = GetBranchName();
+                _branch = Environment.GetEnvironmentVariable("BRANCH");
             }
         }
 
@@ -73,20 +76,26 @@ namespace PactProviderTests.ProviderStates
                     .ServiceProvider(_options.ProviderName, new Uri(_options.ProviderUri))
                     .WithPactBrokerSource(new Uri(_pactBrokerUri), (options) =>
                     {
-                        options.ConsumerVersionSelectors(new ConsumerVersionSelector
+                        /*  options.ConsumerVersionSelectors(new ConsumerVersionSelector
+                          {
+                              Consumer = _options.ConsumerName,
+                              Latest = true
+                          }
+                          ) */
+                        options.ConsumerVersionSelectors(
+                            new ConsumerVersionSelector { MainBranch = true },
+                            new ConsumerVersionSelector { MatchingBranch = true }
+                        )
+                        .ProviderBranch(_branch)
+                        .PublishResults(_version, (results) =>
                         {
-                            Consumer = _options.ConsumerName,
-                            Latest = true
-                        } 
-                        ).PublishResults(_providerVersion, (configure) =>
-                        {
-                            configure.ProviderTags(_tag);
+                            //configure.ProviderTags(_tag);
+                            results.ProviderBranch(_branch);
                         }).TokenAuthentication(_pactBrokerToken);
                     })
                     .WithProviderStateUrl(new Uri(_options.ProviderUri + "/provider-states"))
                     .Verify();
                 });
-
             }
         }
 
