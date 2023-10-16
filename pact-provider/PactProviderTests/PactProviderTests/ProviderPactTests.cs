@@ -60,6 +60,7 @@ namespace PactProviderTests.ProviderStates
 
             if (_pactBrokerUri == null)
             {
+                Console.WriteLine("**** _pactBrokerUri value is null ****");
                 await RunAsync(async () =>
                 {
                     _verifier
@@ -72,6 +73,7 @@ namespace PactProviderTests.ProviderStates
             Console.WriteLine("_pact_url value is ---> " + _pact_url);
             if (_pact_url == null)
             {
+                Console.WriteLine("**** _pact_url value is null ****");
                 await RunAsync(async () =>
                 {
                     _verifier
@@ -94,6 +96,7 @@ namespace PactProviderTests.ProviderStates
             }
             else
             {
+                Console.WriteLine("#### _pact_url value is not null ####");
                 await RunAsync(async () =>
                 {
                     _verifier
