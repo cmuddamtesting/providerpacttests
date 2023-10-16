@@ -69,6 +69,7 @@ namespace PactProviderTests.ProviderStates
                     .Verify();
                 });
             }
+            Console.WriteLine("_pact_url value is ---> " + _pact_url);
             if (_pact_url == null)
             {
                 await RunAsync(async () =>
